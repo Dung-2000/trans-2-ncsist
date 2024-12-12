@@ -10,7 +10,40 @@ const int MOD = 7681; // Common choice modulus
 
 // Function to perform NTT
 vector<complex<double>> ntt(vector<complex<double>>& a, int n, bool inverse) {
-    // ... (rest of the NTT function remains the same)
+    if (n == 1) {
+        return a;
+    }
+
+    vector<complex<double>> a_even(n / 2);
+    vector<complex<double>> a_odd(n / 2);
+    for (int i = 0; i < n / 2; ++i) {
+        a_even[i] = a[2 * i];
+        a_odd[i] = a[2 * i + 1];
+    }
+
+    vector<complex<double>> A_even = ntt(a_even, n / 2, inverse);
+    vector<complex<double>> A_odd = ntt(a_odd, n / 2, inverse);
+
+    vector<complex<double>> A(n);
+    double angle = 2 * M_PI / n * (inverse ? -1 : 1);
+    complex<double> w(1, 0);
+    complex<double> wn(cos(angle), sin(angle));
+
+    for (int i = 0; i < n / 2; ++i) {
+        A[i] = (A_even[i] + w * A_odd[i]);
+        A[i + n / 2] = (A_even[i] - w * A_odd[i]);
+        w *= wn;
+
+
+    }
+        if (inverse) {
+        for (int i = 0; i < n; ++i) {
+            A[i] /= n;
+        }
+    }
+
+
+    return A;
 }
 
 
