@@ -25,15 +25,15 @@ vector<complex<double>> ntt(vector<complex<double>>& a, int n, bool inverse, int
     complex<double> wn(cos(angle), sin(angle));
 
     for (int i = 0; i < n / 2; ++i) {
-        A[i] = fmod((A_even[i] + w * A_odd[i]).real(), mod) + fmod((A_even[i] + w * A_odd[i]).imag(), mod) * 1i;
+        A[i] = fmod((A_even[i] + w * A_odd[i]).real(), mod) + fmod((A_even[i] + w * A_odd[i]).imag(), mod) * complex<double>(0, 1);
 
-        A[i + n / 2] = fmod((A_even[i] - w * A_odd[i]).real(), mod) + fmod((A_even[i] - w * A_odd[i]).imag(), mod) * 1i;
+        A[i + n / 2] = fmod((A_even[i] - w * A_odd[i]).real(), mod) + fmod((A_even[i] - w * A_odd[i]).imag(), mod) * complex<double>(0, 1);
         w *= wn;
     }
 
     if (inverse) {
         for (int i = 0; i < n; ++i) {
-            A[i] = fmod((A[i] / complex<double>(n,0)).real(), mod) + fmod((A[i] / complex<double>(n,0)).imag(), mod) * 1i;
+            A[i] = fmod((A[i] / complex<double>(n,0)).real(), mod) + fmod((A[i] / complex<double>(n,0)).imag(), mod) * complex<double>(0, 1);
         }
     }
 
