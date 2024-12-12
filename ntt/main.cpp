@@ -1,12 +1,5 @@
-#include <iostream>
-#include <vector>
-#include <complex>
-#include <fstream>
-#include <sstream>
+#include "ntt.h"
 
-using namespace std;
-
-const int MOD = 7681; // Common choice modulus
 
 // Function to perform NTT
 vector<complex<double>> ntt(vector<complex<double>>& a, int n, bool inverse) {
@@ -116,5 +109,9 @@ int main() {
     }
     output << endl;
 
+    return 0;
+}
+
+int main(){
     return 0;
 }

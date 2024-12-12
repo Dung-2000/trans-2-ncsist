@@ -1,17 +1,9 @@
-#include <iostream>
-#include <vector>
-#include <complex>
-#include <fstream>
-#include <sstream>
+#include "ntt.h"
 #include <cassert>
-#include "main.cpp" // Include the header for poly_mult
-
-using namespace std;
-
-const int MOD = 7681; // Common choice modulus
+#include <iostream>
 
 
-int main() {
+int test_poly_mult() {
     // Test case 1: Simple multiplication
     vector<double> a = {1, 2, 3};
     vector<double> b = {4, 5};
@@ -45,6 +37,11 @@ int main() {
     assert(result == expected_result_mod);
 
     cout << "All test cases passed!" << endl;
+    return 0;
+}
+
+int main(){
+    test_poly_mult();
     return 0;
 
 }
