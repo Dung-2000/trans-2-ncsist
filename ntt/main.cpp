@@ -1,4 +1,6 @@
 #include "ntt.h"
+#include <fstream>
+#include <sstream>
 
 
 // Function to perform NTT
@@ -109,9 +111,5 @@ int main() {
     }
     output << endl;
 
-    return 0;
-}
-
-int main(){
     return 0;
 }
