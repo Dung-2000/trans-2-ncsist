@@ -4,7 +4,7 @@
 
 
 // Function to perform NTT
-vector<complex<double>> ntt(vector<complex<double>>& a, int n, bool inverse) {
+vector<complex<double>> ntt(vector<complex<double>>& a, int n, bool inverse, int mod) {
     if (n == 1) {
         return a;
     }
@@ -25,22 +25,20 @@ vector<complex<double>> ntt(vector<complex<double>>& a, int n, bool inverse) {
     complex<double> wn(cos(angle), sin(angle));
 
     for (int i = 0; i < n / 2; ++i) {
-        A[i] = (A_even[i] + w * A_odd[i]);
-        A[i + n / 2] = (A_even[i] - w * A_odd[i]);
+        A[i] = fmod((A_even[i] + w * A_odd[i]).real(), mod) + fmod((A_even[i] + w * A_odd[i]).imag(), mod) * 1i;
+
+        A[i + n / 2] = fmod((A_even[i] - w * A_odd[i]).real(), mod) + fmod((A_even[i] - w * A_odd[i]).imag(), mod) * 1i;
         w *= wn;
-
-
     }
-        if (inverse) {
+
+    if (inverse) {
         for (int i = 0; i < n; ++i) {
-            A[i] /= n;
+            A[i] = fmod((A[i] / complex<double>(n,0)).real(), mod) + fmod((A[i] / complex<double>(n,0)).imag(), mod) * 1i;
         }
     }
 
-
     return A;
 }
-
 
 vector<double> poly_mult(const vector<double>& a, const vector<double>& b) {
     int n = 1;
@@ -57,15 +55,15 @@ vector<double> poly_mult(const vector<double>& a, const vector<double>& b) {
         b_complex[i] = complex<double>(b[i], 0);
     }
 
-    vector<complex<double>> A = ntt(a_complex, n, false);
-    vector<complex<double>> B = ntt(b_complex, n, false);
+    vector<complex<double>> A = ntt(a_complex, n, false, MOD);
+    vector<complex<double>> B = ntt(b_complex, n, false, MOD);
 
     vector<complex<double>> C(n);
     for (int i = 0; i < n; ++i) {
         C[i] = A[i] * B[i];
     }
 
-    vector<complex<double>> c_complex = ntt(C, n, true);
+    vector<complex<double>> c_complex = ntt(C, n, true, MOD);
     vector<double> c(a.size() + b.size() - 1);
     for (int i = 0; i < c.size(); ++i) {
         c[i] = round(c_complex[i].real()); // Round to nearest integer

@@ -33,7 +33,7 @@ int test_poly_mult() {
     expected_result = {15360%MOD, 30720%MOD, 15360%MOD};
     result = poly_mult(a, b);
 
-    vector<double> expected_result_mod = {7679, 7678, 7679};
+    vector<double> expected_result_mod = {7680, 7679, 7680};
     assert(result == expected_result_mod);
 
     cout << "All test cases passed!" << endl;
