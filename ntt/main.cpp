@@ -2,6 +2,34 @@
 #include <fstream>
 #include <sstream>
 
+/*
+The provided code implements a polynomial multiplication algorithm using the Number Theoretic Transform (NTT). NTT is a fast Fourier transform algorithm designed specifically for multiplying polynomials over a finite field.
+
+Here's a breakdown of the code:
+
+**1. NTT Function:**
+
+* This function performs the NTT on a given polynomial `a` of length `n`.
+* It uses a divide-and-conquer approach to recursively compute the NTT of even and odd indexed elements of `a`.
+* It combines the transformed halves using the twiddle factor `w` and returns the transformed polynomial `A`.
+* If `inverse` is `true`, it performs the inverse NTT, scaling the result by `1/n`.
+
+**2. Poly_Mult Function:**
+
+* This function performs polynomial multiplication using the NTT.
+* It first computes the NTT of both polynomials `a` and `b`.
+* It then element-wise multiplies the transformed polynomials `A` and `B`.
+* Finally, it applies the inverse NTT to the result `C` and rounds the real parts of the complex numbers to obtain the integer coefficients of the product polynomial.
+
+**3. Main Function:**
+
+* The `main` function serves as an example of how to use the `poly_mult` function for polynomial multiplication.
+* It reads two polynomials `a` and `b` from input files.
+* It calls the `poly_mult` function to compute their product and stores the result in `result`.
+* It writes the product polynomial to an output file.
+
+**Overall,** this code provides a fast and efficient way to perform polynomial multiplication using the NTT algorithm. It is commonly used in various applications, including signal processing, cryptography, and computer algebra.
+*/
 
 // Function to perform NTT
 vector<complex<double>> ntt(vector<complex<double>>& a, int n, bool inverse, int mod) {
